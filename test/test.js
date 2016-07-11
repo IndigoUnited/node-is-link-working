@@ -41,6 +41,7 @@ it('should pass the correct options to `got`', () => {
         followRedirect: true,
         retries: 3,
         timeout: 15000,
+        agent: null,
         headers: {
             'user-agent': `is-link-working/${pkg.version} (https://github.com/IndigoUnited/is-link-working)`,
         },
@@ -57,6 +58,7 @@ it('should pass the correct options to `got`', () => {
         followRedirect: false,
         retries: 1,
         timeout: 5000,
+        agent: null,
         headers: {
             'user-agent': `is-link-working/${pkg.version} (https://github.com/IndigoUnited/is-link-working)`,
         },

@@ -43,6 +43,7 @@ Available options:
 - `followRedirect` - Defines if redirect responses should be followed automatically (defaults to `true`)
 - `timeout` - Milliseconds to wait for a server to send response headers before aborting request with `ETIMEDOUT` error (defaults to `10000`)
 - `retries` - Number of request retries when network errors happens, see [got retries](https://github.com/sindresorhus/got) option for more information (defaults to `3`)
+- `agent` -  The agent to use, see https://nodejs.org/api/http.html#http_http_request_options_callback (defaults to `null`)
 
 
 Connectivity status (online/offline) is made with [is-online](https://github.com/sindresorhus/is-online) and its result is cached for 5000 ms to avoid calling it too many times. You may tweak that if you want:

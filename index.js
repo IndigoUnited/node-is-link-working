@@ -56,12 +56,14 @@ function isLinkWorking(link, options) {
         followRedirect: true,
         timeout: 15000,
         retries: 3,
+        agent: null,
     }, options);
 
     const gotOptions = {
         timeout: options.timeout,
         followRedirect: options.followRedirect,
         retries: options.retries,
+        agent: options.agent,
         headers: {
             'user-agent': `is-link-working/${pkg.version} (https://github.com/IndigoUnited/is-link-working)`,
         },
