@@ -17,6 +17,7 @@ function isOnlineAsPromise() {
         isOnline((err, online) => {
             if (err) {
                 delete isOnlineCache.promise;  // Do not cache errors
+                /* istanbul ignore next */
                 reject(err);
             } else {
                 resolve(online);
