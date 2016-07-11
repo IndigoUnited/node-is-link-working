@@ -76,7 +76,7 @@ describe('connectivity check', () => {
 
         const isLinkWorking = mockRequire.reRequire('../');
 
-        return isLinkWorking('http://thisdomainwillneverexist.org', { checkConnectivity: false })
+        return isLinkWorking('http://thisdomainwillneverexist.org')
         .then((working) => {
             expect(called).to.equal(false);
             expect(working).to.equal(false);
@@ -93,7 +93,7 @@ describe('connectivity check', () => {
 
         const isLinkWorking = mockRequire.reRequire('../');
 
-        return isLinkWorking('http://thisdomainwillneverexist.org')
+        return isLinkWorking('http://thisdomainwillneverexist.org', { checkConnectivity: true })
         .then((working) => {
             expect(called).to.equal(true);
             expect(working).to.equal(false);
@@ -110,7 +110,7 @@ describe('connectivity check', () => {
 
         const isLinkWorking = mockRequire.reRequire('../');
 
-        return isLinkWorking('http://thisdomainwillneverexist.org')
+        return isLinkWorking('http://thisdomainwillneverexist.org', { checkConnectivity: true })
         .then(() => {
             throw new Error('Should have failed');
         }, (err) => {
@@ -129,7 +129,7 @@ describe('connectivity check', () => {
 
         const isLinkWorking = mockRequire.reRequire('../');
 
-        return isLinkWorking('http://thisdomainwillneverexist.org')
+        return isLinkWorking('http://thisdomainwillneverexist.org', { checkConnectivity: true })
         .then(() => {
             throw new Error('Should have failed');
         }, (err) => {
@@ -155,8 +155,8 @@ describe('connectivity cache', () => {
         return Promise.resolve()
         .then(() => {
             return Promise.all([
-                isLinkWorking('http://thisdomainwillneverexist.org'),
-                promiseDelay(50).then(() => isLinkWorking('http://thisdomainwillneverexist.org')),
+                isLinkWorking('http://thisdomainwillneverexist.org', { checkConnectivity: true }),
+                promiseDelay(50).then(() => isLinkWorking('http://thisdomainwillneverexist.org', { checkConnectivity: true })),
             ])
             .then((working) => {
                 expect(working).to.eql([false, false]);
@@ -165,7 +165,7 @@ describe('connectivity cache', () => {
         })
         .then(() => promiseDelay(75))
         .then(() => {
-            return isLinkWorking('http://thisdomainwillneverexist.org')
+            return isLinkWorking('http://thisdomainwillneverexist.org', { checkConnectivity: true })
             .then((working) => {
                 expect(working).to.equal(false);
                 expect(nrCalls).to.equal(2);
@@ -183,7 +183,7 @@ describe('connectivity cache', () => {
 
         const isLinkWorking = mockRequire.reRequire('../');
 
-        return isLinkWorking('http://thisdomainwillneverexist.org')
+        return isLinkWorking('http://thisdomainwillneverexist.org', { checkConnectivity: true })
         .then(() => {
             throw new Error('Should have failed');
         }, () => {
@@ -194,7 +194,7 @@ describe('connectivity cache', () => {
 
             const isLinkWorking = mockRequire.reRequire('../');
 
-            return isLinkWorking('http://thisdomainwillneverexist.org')
+            return isLinkWorking('http://thisdomainwillneverexist.org', { checkConnectivity: true })
             .then((working) => {
                 expect(nrCalls).to.equal(2);
                 expect(working).to.equal(false);
@@ -217,9 +217,9 @@ describe('connectivity cache', () => {
         return Promise.resolve()
         .then(() => {
             return Promise.all([
-                isLinkWorking('http://thisdomainwillneverexist.org'),
-                isLinkWorking('http://thisdomainwillneverexist.org'),
-                promiseDelay(50).then(() => isLinkWorking('http://thisdomainwillneverexist.org')),
+                isLinkWorking('http://thisdomainwillneverexist.org', { checkConnectivity: true }),
+                isLinkWorking('http://thisdomainwillneverexist.org', { checkConnectivity: true }),
+                promiseDelay(50).then(() => isLinkWorking('http://thisdomainwillneverexist.org', { checkConnectivity: true })),
             ])
             .then((working) => {
                 expect(working).to.eql([false, false, false]);

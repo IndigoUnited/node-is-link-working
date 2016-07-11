@@ -17,7 +17,7 @@
 Checks if a given hypermedia link is working or broken (2xx).
 
 Performs a GET request, aborting it as soon as we got the response headers.
-If the URL is unreachable, checks if you are offline to avoid returning false negatives.
+If the URL is unreachable, optionally checks if you are offline to avoid returning false negatives.
 
 
 ## Installation
@@ -39,7 +39,7 @@ isLinkWorking('http://google.com')
 
 Available options:
 
-- `checkConnectivity` - True to check internet connectivity if the request fails because of a network error (defaults to `true`)
+- `checkConnectivity` - True to check internet connectivity if the request fails because of a network error (defaults to `false`)
 - `followRedirect` - Defines if redirect responses should be followed automatically (defaults to `true`)
 - `timeout` - Milliseconds to wait for a server to send response headers before aborting request with `ETIMEDOUT` error (defaults to `10000`)
 - `retries` - Number of request retries when network errors happens, see [got retries](https://github.com/sindresorhus/got) option for more information (defaults to `3`)

@@ -52,7 +52,7 @@ class DevNull extends WritableStream {
 
 function isLinkWorking(link, options) {
     options = Object.assign({
-        checkConnectivity: true,
+        checkConnectivity: false,
         followRedirect: true,
         timeout: 15000,
         retries: 3,
