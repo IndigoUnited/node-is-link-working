@@ -48,27 +48,12 @@ class DevNull extends WritableStream {
     }
 }
 
-// -------------------------------------------------------------------------
+function tryHead(link, gotOptions) {
+    return got.head(link, gotOptions)
+    .then(() => true);
+}
 
-function isLinkWorking(link, options) {
-    options = Object.assign({
-        checkConnectivity: false,
-        followRedirect: true,
-        timeout: 15000,
-        retries: 3,
-        agent: null,
-    }, options);
-
-    const gotOptions = {
-        timeout: options.timeout,
-        followRedirect: options.followRedirect,
-        retries: options.retries,
-        agent: options.agent,
-        headers: {
-            'user-agent': `is-link-working/${pkg.version} (https://github.com/IndigoUnited/is-link-working)`,
-        },
-    };
-
+function tryGet(link, options, gotOptions) {
     return new Promise((resolve, reject) => {
         let stream;
         let req;
@@ -104,6 +89,31 @@ function isLinkWorking(link, options) {
         })
         .pipe(new DevNull());
     });
+}
+
+// -------------------------------------------------------------------------
+
+function isLinkWorking(link, options) {
+    options = Object.assign({
+        checkConnectivity: false,
+        followRedirect: true,
+        timeout: 15000,
+        retries: 3,
+        agent: null,
+    }, options);
+
+    const gotOptions = {
+        timeout: options.timeout,
+        followRedirect: options.followRedirect,
+        retries: options.retries,
+        agent: options.agent,
+        headers: {
+            'user-agent': `is-link-working/${pkg.version} (https://github.com/IndigoUnited/is-link-working)`,
+        },
+    };
+
+    return tryHead(link, gotOptions)
+    .catch(() => tryGet(link, options, gotOptions));
 }
 
 module.exports = isLinkWorking;

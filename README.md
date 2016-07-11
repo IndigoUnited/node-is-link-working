@@ -16,7 +16,7 @@
 
 Checks if a given hypermedia link is working or broken (2xx).
 
-Performs a GET request, aborting it as soon as we got the response headers.
+Tries a HEAD request first because it's faster. If that fails, tries a GET request and aborts it as soon as we got the response headers.
 If the URL is unreachable, optionally checks if you are offline to avoid returning false negatives.
 
 

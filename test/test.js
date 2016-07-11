@@ -1,6 +1,8 @@
 'use strict';
 
+const EventEmitter = require('event-emitter');
 const expect = require('chai').expect;
+const nock = require('nock');
 const mockRequire = require('mock-require');
 const got = require('got');
 const promiseDelay = require('promise-delay');
@@ -10,9 +12,22 @@ const pkg = require('../package.json');
 before(() => { isLinkWorking.connectivityCacheDuration = 0; });
 afterEach(() => mockRequire.stopAll());
 
-it('should resolve to true for http://google.com', () => {
+it('should resolve to true for http://google.com (HEAD)', () => {
     return isLinkWorking('http://google.com')
     .then((working) => expect(working).to.equal(true));
+});
+
+it('should resolve to true for http://google.com (GET)', () => {
+    const nocked = nock('http://google.com')
+    .head('/')
+    .reply(404, () => nock.cleanAll());
+
+    return isLinkWorking('http://google.com')
+    .then((working) => expect(working).to.equal(true))
+    .then(() => nocked.done(), (err) => {
+        nock.cleanAll();
+        throw err;
+    });
 });
 
 it('should resolve to false for http://thisdomainwillneverexist.org (domain not found)', () => {
@@ -29,39 +44,50 @@ it('should pass the correct options to `got`', () => {
     let options;
 
     mockRequire('got', {
-        stream: (url, _options) => { options = _options; },
+        head: (url, _options) => {
+            options = _options;
+            return Promise.resolve();
+        },
+        stream: (url, _options) => {
+            options = _options;
+            return Promise.resolve(new EventEmitter());
+        },
     });
 
     const isLinkWorking = mockRequire.reRequire('../');
 
-    isLinkWorking('http://google.com')
-    .catch(() => {});
-
-    expect(options).to.eql({
-        followRedirect: true,
-        retries: 3,
-        timeout: 15000,
-        agent: null,
-        headers: {
-            'user-agent': `is-link-working/${pkg.version} (https://github.com/IndigoUnited/is-link-working)`,
-        },
-    });
-
-    isLinkWorking('http://google.com', {
-        followRedirect: false,
-        retries: 1,
-        timeout: 5000,
+    return Promise.resolve()
+    .then(() => {
+        return isLinkWorking('http://google.com')
+        .then(() => {
+            expect(options).to.eql({
+                followRedirect: true,
+                retries: 3,
+                timeout: 15000,
+                agent: null,
+                headers: {
+                    'user-agent': `is-link-working/${pkg.version} (https://github.com/IndigoUnited/is-link-working)`,
+                },
+            });
+        });
     })
-    .catch(() => {});
-
-    expect(options).to.eql({
-        followRedirect: false,
-        retries: 1,
-        timeout: 5000,
-        agent: null,
-        headers: {
-            'user-agent': `is-link-working/${pkg.version} (https://github.com/IndigoUnited/is-link-working)`,
-        },
+    .then(() => {
+        return isLinkWorking('http://somepagethatwillneverexist.org', {
+            followRedirect: false,
+            retries: 1,
+            timeout: 5000,
+        })
+        .then(() => {
+            expect(options).to.eql({
+                followRedirect: false,
+                retries: 1,
+                timeout: 5000,
+                agent: null,
+                headers: {
+                    'user-agent': `is-link-working/${pkg.version} (https://github.com/IndigoUnited/is-link-working)`,
+                },
+            });
+        });
     });
 });
 
