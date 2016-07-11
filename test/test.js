@@ -34,7 +34,9 @@ it('should pass the correct options to `got`', () => {
 
     const isLinkWorking = mockRequire.reRequire('../');
 
-    isLinkWorking('http://google.com');
+    isLinkWorking('http://google.com')
+    .catch(() => {});
+
     expect(options).to.eql({
         followRedirect: true,
         retries: 3,
@@ -48,7 +50,9 @@ it('should pass the correct options to `got`', () => {
         followRedirect: false,
         retries: 1,
         timeout: 5000,
-    });
+    })
+    .catch(() => {});
+
     expect(options).to.eql({
         followRedirect: false,
         retries: 1,
@@ -159,7 +163,7 @@ describe('connectivity cache', () => {
         })
         .then(() => promiseDelay(75))
         .then(() => {
-            return isLinkWorking('http://somepagethatwillneverexist.org')
+            return isLinkWorking('http://thisdomainwillneverexist.org')
             .then((working) => {
                 expect(working).to.equal(false);
                 expect(nrCalls).to.equal(2);
