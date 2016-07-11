@@ -4,7 +4,7 @@
   "description": "Checks if a given link is working or broken",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint '{*.js,lib/**/*.js,reporters/**/*.js,test/**/*.js}' --ignore-pattern=test/coverage",
+    "lint": "eslint '{*.js,test/**/*.js}' --ignore-pattern=test/coverage",
     "test": "mocha --bail",
     "test-cov": "istanbul cover --dir test/coverage _mocha -- --bail && echo Coverage lies in test/coverage/lcov-report/index.html",
     "test-travis": "istanbul cover _mocha --report lcovonly -- --bail && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
