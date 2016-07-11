@@ -65,6 +65,11 @@ it('should pass the correct options to `got`', () => {
     });
 });
 
+it('should report broken with urls having wrong protocols', () => {
+    return isLinkWorking('htttps://google.com')
+    .then((working) => expect(working).to.equal(false));
+});
+
 describe('connectivity check', () => {
     it('should NOT check connectivity if options.checkConnectivity is false', () => {
         let called = false;

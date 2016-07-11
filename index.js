@@ -70,9 +70,16 @@ function isLinkWorking(link, options) {
     };
 
     return new Promise((resolve, reject) => {
+        let stream;
         let req;
 
-        got.stream(link, gotOptions)
+        try {
+            stream = got.stream(link, gotOptions);
+        } catch (err) {
+            return resolve(false);
+        }
+
+        stream
         .on('request', (req_) => { req = req_; })
         .on('response', (res) => {
             res.on('error', () => {});  // Swallow any response errors, because we are going to abort the request
