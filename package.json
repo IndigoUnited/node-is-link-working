@@ -1,6 +1,6 @@
 {
   "name": "is-link-working",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Checks if a given link is working or broken",
   "main": "index.js",
   "scripts": {
