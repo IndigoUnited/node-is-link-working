@@ -1,6 +1,6 @@
 'use strict';
 
-const EventEmitter = require('event-emitter');
+const EventEmitter = require('events');
 const expect = require('chai').expect;
 const nock = require('nock');
 const mockRequire = require('mock-require');
