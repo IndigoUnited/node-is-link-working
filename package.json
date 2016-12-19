@@ -30,7 +30,7 @@
   "license": "MIT",
   "dependencies": {
     "got": "^6.3.0",
-    "is-online": "^5.1.1"
+    "is-online": "^6.0.1"
   },
   "devDependencies": {
     "@satazor/eslint-config": "^3.0.0",
