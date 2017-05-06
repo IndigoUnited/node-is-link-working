@@ -11,7 +11,7 @@
 [coveralls-image]:https://img.shields.io/coveralls/IndigoUnited/node-is-link-working/master.svg
 [david-dm-url]:https://david-dm.org/IndigoUnited/node-is-link-working
 [david-dm-image]:https://img.shields.io/david/IndigoUnited/node-is-link-working.svg
-[david-dm-dev-url]:https://david-dm.org/IndigoUnited/node-is-link-working#info=devDependencies
+[david-dm-dev-url]:https://david-dm.org/IndigoUnited/node-is-link-working?type=dev
 [david-dm-dev-image]:https://img.shields.io/david/dev/IndigoUnited/node-is-link-working.svg
 
 Checks if a given hypermedia link is working or broken (2xx).
