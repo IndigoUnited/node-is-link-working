@@ -75,7 +75,7 @@ function tryGet(link, options, gotOptions) {
             res && res.on('error', () => {});  // Swallow any response errors, because we are going to abort the request
             setImmediate(() => req.abort());
 
-            if (err instanceof got.MaxRedirectsError || err instanceof got.HTTPError) {
+            if (err instanceof got.MaxRedirectsError || err instanceof got.HTTPError || err instanceof got.UnsupportedProtocolError) {
                 return resolve(false);
             }
 
