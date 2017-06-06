@@ -1,8 +1,6 @@
 # is-link-working
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/IndigoUnited/node-is-link-working.svg)](https://greenkeeper.io/)
-
-[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependency status][david-dm-image]][david-dm-url] [![Dev Dependency status][david-dm-dev-image]][david-dm-dev-url]
+[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependency status][david-dm-image]][david-dm-url] [![Dev Dependency status][david-dm-dev-image]][david-dm-dev-url] [![Greenkeeper badge][greenkeeper-image]][greenkeeper-url]
 
 [npm-url]:https://npmjs.org/package/is-link-working
 [downloads-image]:http://img.shields.io/npm/dm/is-link-working.svg
@@ -15,6 +13,8 @@
 [david-dm-image]:https://img.shields.io/david/IndigoUnited/node-is-link-working.svg
 [david-dm-dev-url]:https://david-dm.org/IndigoUnited/node-is-link-working?type=dev
 [david-dm-dev-image]:https://img.shields.io/david/dev/IndigoUnited/node-is-link-working.svg
+[greenkeeper-image]:https://badges.greenkeeper.io/IndigoUnited/node-is-link-working.svg
+[greenkeeper-url]:https://greenkeeper.io/
 
 Checks if a given hypermedia link is working or broken (2xx).
 
