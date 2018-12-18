@@ -29,7 +29,7 @@
   "author": "IndigoUnited <hello@indigounited.com> (http://indigounited.com)",
   "license": "MIT",
   "dependencies": {
-    "got": "^7.0.0",
+    "got": "^9.5.0",
     "is-online": "^7.0.0"
   },
   "devDependencies": {
