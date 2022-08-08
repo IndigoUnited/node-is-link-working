@@ -9,6 +9,7 @@
     "test-cov": "nyc --dir test/coverage _mocha -- --timeout 10000 --bail && echo Coverage lies in test/coverage/lcov-report/index.html",
     "test-travis": "nyc _mocha --report lcovonly -- --timeout 10000 --bail && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
+  "types": "./index.d.ts",
   "bugs": {
     "url": "https://github.com/IndigoUnited/node-is-link-working/issues/"
   },
