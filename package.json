@@ -6,8 +6,8 @@
   "scripts": {
     "lint": "eslint *.js test/**/*.js --ignore-pattern=test/coverage",
     "test": "mocha --timeout 10000 --bail",
-    "test-cov": "istanbul cover --dir test/coverage _mocha -- --timeout 10000 --bail && echo Coverage lies in test/coverage/lcov-report/index.html",
-    "test-travis": "istanbul cover _mocha --report lcovonly -- --timeout 10000 --bail && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "test-cov": "nyc --dir test/coverage _mocha -- --timeout 10000 --bail && echo Coverage lies in test/coverage/lcov-report/index.html",
+    "test-travis": "nyc _mocha --report lcovonly -- --timeout 10000 --bail && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "bugs": {
     "url": "https://github.com/IndigoUnited/node-is-link-working/issues/"
@@ -37,10 +37,10 @@
     "chai": "^4.3.6",
     "coveralls": "^3.1.1",
     "eslint": "^8.21.0",
-    "istanbul": "^0.4.5",
     "mocha": "^10.0.0",
     "mock-require": "^3.0.3",
     "nock": "^13.2.9",
+    "nyc": "^15.1.0",
     "promise-delay": "^2.1.0"
   },
   "engines": {
