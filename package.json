@@ -4,11 +4,12 @@
   "description": "Checks if a given link is working or broken",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint '{*.js,test/**/*.js}' --ignore-pattern=test/coverage",
-    "test": "mocha --bail",
-    "test-cov": "istanbul cover --dir test/coverage _mocha -- --bail && echo Coverage lies in test/coverage/lcov-report/index.html",
-    "test-travis": "istanbul cover _mocha --report lcovonly -- --bail && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "lint": "eslint *.js test/**/*.js --ignore-pattern=test/coverage",
+    "test": "mocha --timeout 10000 --bail",
+    "test-cov": "nyc --dir test/coverage _mocha -- --timeout 10000 --bail && echo Coverage lies in test/coverage/lcov-report/index.html",
+    "test-travis": "nyc _mocha --report lcovonly -- --timeout 10000 --bail && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
+  "types": "./index.d.ts",
   "bugs": {
     "url": "https://github.com/IndigoUnited/node-is-link-working/issues/"
   },
@@ -29,18 +30,18 @@
   "author": "IndigoUnited <hello@indigounited.com> (http://indigounited.com)",
   "license": "MIT",
   "dependencies": {
-    "got": "^7.0.0",
-    "is-online": "^7.0.0"
+    "got": "^11.8.5",
+    "is-online": "^9.0.1"
   },
   "devDependencies": {
-    "@satazor/eslint-config": "^3.0.0",
-    "chai": "^4.0.0",
-    "coveralls": "^2.11.6",
-    "eslint": "^3.0.0",
-    "istanbul": "^0.4.1",
-    "mocha": "^3.0.2",
-    "mock-require": "^2.0.0",
-    "nock": "^9.0.0",
+    "@satazor/eslint-config": "^3.2.0",
+    "chai": "^4.3.6",
+    "coveralls": "^3.1.1",
+    "eslint": "^8.21.0",
+    "mocha": "^10.0.0",
+    "mock-require": "^3.0.3",
+    "nock": "^13.2.9",
+    "nyc": "^15.1.0",
     "promise-delay": "^2.1.0"
   },
   "engines": {
