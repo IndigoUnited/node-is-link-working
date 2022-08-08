@@ -16,7 +16,7 @@ function isOnlineAsPromise() {
     isOnlineCache = new Promise((resolve, reject) => {
         isOnline((err, online) => {
             if (err) {
-                delete isOnlineCache.promise;  // Do not cache errors
+                delete isOnlineCache.promise; // Do not cache errors
                 /* istanbul ignore next */
                 reject(err);
             } else {
@@ -32,14 +32,14 @@ function isOnlineAsPromise() {
 
 function checkConnectivity(requestErr) {
     return isOnlineAsPromise()
-    .catch(() => { throw requestErr; })
-    .then((online) => {
-        if (!online) {
-            throw requestErr;
-        }
+        .catch(() => { throw requestErr; })
+        .then((online) => {
+            if (!online) {
+                throw requestErr;
+            }
 
-        return false;
-    });
+            return false;
+        });
 }
 
 class DevNull extends WritableStream {
@@ -50,7 +50,7 @@ class DevNull extends WritableStream {
 
 function tryHead(link, gotOptions) {
     return got.head(link, gotOptions)
-    .then(() => true);
+        .then(() => true);
 }
 
 function tryGet(link, options, gotOptions) {
@@ -65,29 +65,29 @@ function tryGet(link, options, gotOptions) {
         }
 
         stream
-        .on('request', (req_) => { req = req_; })
-        .on('response', (res) => {
-            res.on('error', () => {});  // Swallow any response errors, because we are going to abort the request
-            setImmediate(() => req.abort());
-            resolve(true);
-        })
-        .on('error', (err, body, res) => {
-            res && res.on('error', () => {});  // Swallow any response errors, because we are going to abort the request
-            setImmediate(() => req.abort());
+            .on('request', (req_) => { req = req_; })
+            .on('response', (res) => {
+                res.on('error', () => {}); // Swallow any response errors, because we are going to abort the request
+                setImmediate(() => req.abort());
+                resolve(true);
+            })
+            .on('error', (err, body, res) => {
+                res && res.on('error', () => {}); // Swallow any response errors, because we are going to abort the request
+                setImmediate(() => req.abort());
 
-            if (err instanceof got.MaxRedirectsError || err instanceof got.HTTPError || err instanceof got.UnsupportedProtocolError) {
-                return resolve(false);
-            }
+                if (err instanceof got.MaxRedirectsError || err instanceof got.HTTPError || err instanceof got.UnsupportedProtocolError) {
+                    return resolve(false);
+                }
 
-            /* istanbul ignore else */
-            if (err instanceof got.RequestError) {
-                return resolve(options.checkConnectivity ? checkConnectivity(err) : false);
-            }
+                /* istanbul ignore else */
+                if (err instanceof got.RequestError) {
+                    return resolve(options.checkConnectivity ? checkConnectivity(err) : false);
+                }
 
-            /* istanbul ignore next */
-            reject(err);
-        })
-        .pipe(new DevNull());
+                /* istanbul ignore next */
+                reject(err);
+            })
+            .pipe(new DevNull());
     });
 }
 
@@ -113,7 +113,7 @@ function isLinkWorking(link, options) {
     };
 
     return tryHead(link, gotOptions)
-    .catch(() => tryGet(link, options, gotOptions));
+        .catch(() => tryGet(link, options, gotOptions));
 }
 
 module.exports = isLinkWorking;
